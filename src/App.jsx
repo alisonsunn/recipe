@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react'
+import Button from '@/components/Button/Button'
+import { v4 as uuidV4 } from 'uuid'
+import Recipe from '@/components/Recipe'
+import EditPanel from '@/components/EditPanel'
 
-function App() {
-  const [count, setCount] = useState(0)
+const sampleRecipes = [
+  {
+    id: uuidV4(),
+    name: "Plain Chicken",
+    servings: 3,
+    cookTime: "2:45",
+    instructions: [
+      "Put salt on Chicken",
+      "Put chicken in oven",
+      "Eat chicken"
+    ],
+    ingredients: [
+      {
+        id: uuidV4(),
+        name: "Chicken",
+        amount: "2 Pounds"
+      },
+      {
+        id: uuidV4(),
+        name: "Salt",
+        amount: "1 Tbs"
+      }
+    ]
+  },
+  {
+    id: uuidV4(),
+    name: "Plain Pork",
+    servings: 5,
+    cookTime: "0:45",
+    instructions: [
+      "Put paprika on Pork",
+      "Put pork in oven",
+      "Eat pork"
+    ],
+    ingredients: [
+      {
+        id: uuidV4(),
+        name: "Pork",
+        amount: "2 Pounds"
+      },
+      {
+        id: uuidV4(),
+        name: "Paprika",
+        amount: "2 Tbs"
+      }
+    ]
+  },
+  {
+    id: uuidV4(),
+    name: "Plain Apple Pai",
+    servings: 10,
+    cookTime: "3:45",
+    instructions: [
+      "Put apples in pie",
+      "Put pie in oven",
+      "Eat pie"
+    ],
+    ingredients: [
+      {
+        id: uuidV4(),
+        name: "Pork",
+        amount: "2 Pounds"
+      },
+      {
+        id: uuidV4(),
+        name: "Paprika",
+        amount: "2 Tbs"
+      }
+    ]
+  }
+]
 
+export const App = () => {
+  const [selectReceiptId, setSelectReceiptId] = useState(true);
+  const [recipes, setRecipes] = useState(sampleRecipes);
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Recipe
+        recipes={recipes}
+        selectReceiptId={selectReceiptId} />
+      {/* only when you select a receipt, the edit panel will be displayed */}
+      {selectReceiptId && <EditPanel />}
     </>
   )
 }
 
-export default App
+export default App;
