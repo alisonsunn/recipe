@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { v4 as uuidV4 } from 'uuid'
-import Recipe from '@/components/RecipeList'
+import RecipeList from '@/components/RecipeList'
 import EditPanel from '@/components/EditPanel'
 import addRecipe from '@/utils/addRecipe'
+import deleteRecipe from './utils/deleteRecipe'
 
 const sampleRecipes = [
   {
@@ -85,12 +86,17 @@ export const App = () => {
     addRecipe(recipes, setRecipes);
   }
 
+  const handleDeleteRecipe = (id) => {
+    deleteRecipe(id, recipes, setRecipes);
+  }
+
   return (
     <>
-      <Recipe
+      <RecipeList
         recipes={recipes}
         selectReceiptId={selectReceiptId}
-        addRecipe={handleAddRecipe} />
+        addRecipe={handleAddRecipe}
+        deleteRecipe={handleDeleteRecipe} />
       {/* only when you select a receipt, the edit panel will be displayed */}
       {selectReceiptId && <EditPanel />}
     </>

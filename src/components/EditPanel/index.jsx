@@ -18,7 +18,6 @@ function EditPanel(props) {
       <Ingredient></Ingredient>
       <Instruction></Instruction>
     </div>
-
   )
 }
 

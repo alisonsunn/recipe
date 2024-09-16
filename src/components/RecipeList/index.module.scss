@@ -12,9 +12,9 @@
   max-width: 60rem;
   min-width: 30rem;
   background-color: #eee;
-  @include base.scrollNone;
   padding-top: 1rem;
   overflow-anchor: none;
+  @include base.scrollNone;
 }
 
 .title {

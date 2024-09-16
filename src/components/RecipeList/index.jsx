@@ -5,12 +5,12 @@ import { Button } from '@/components/Button'
 import Recipe from '@/components/Recipe'
 
 function RecipeList(props) {
-  const { recipes, selectreceiptid, className, addRecipe } = props;
+  const { recipes, selectreceiptid, className, addRecipe, deleteRecipe } = props;
   const classNames = scssConvert(className, styles, "container");
   // for each recipe, render a RecipeList component
   const recipe = recipes.map((recipe) => {
     return (
-      <Recipe key={recipe.id} recipes={recipe} selectreceiptid={selectreceiptid} />
+      <Recipe key={recipe.id} recipes={recipe} selectreceiptid={selectreceiptid} deleteRecipe={deleteRecipe} />
     )
   })
   return (
