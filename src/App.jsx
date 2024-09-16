@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Button from '@/components/Button/Button'
 import { v4 as uuidV4 } from 'uuid'
-import Recipe from '@/components/Recipe'
+import Recipe from '@/components/RecipeList'
 import EditPanel from '@/components/EditPanel'
+import addRecipe from '@/utils/addRecipe'
 
 const sampleRecipes = [
   {
@@ -77,13 +77,20 @@ const sampleRecipes = [
 ]
 
 export const App = () => {
-  const [selectReceiptId, setSelectReceiptId] = useState(true);
+  const [selectReceiptId, setSelectReceiptId] = useState(false);
+
   const [recipes, setRecipes] = useState(sampleRecipes);
+
+  const handleAddRecipe = () => {
+    addRecipe(recipes, setRecipes);
+  }
+
   return (
     <>
       <Recipe
         recipes={recipes}
-        selectReceiptId={selectReceiptId} />
+        selectReceiptId={selectReceiptId}
+        addRecipe={handleAddRecipe} />
       {/* only when you select a receipt, the edit panel will be displayed */}
       {selectReceiptId && <EditPanel />}
     </>

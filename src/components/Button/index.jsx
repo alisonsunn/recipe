@@ -1,6 +1,5 @@
 import React from 'react'
-import Header from '@/components/Header/Header';
-import styles from '@/components/Button/Button.module.scss';
+import styles from '@/components/Button/index.module.scss';
 import { scssConvert } from '@/utils/scssConvert';
 
 export const Button = (props) => {

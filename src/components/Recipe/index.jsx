@@ -1,24 +1,27 @@
 import React from 'react'
-import styles from '@/components/Recipe/index.module.scss'
-import { scssConvert } from '@/utils/scssConvert'
-import { Button } from '@/components/Button/Button'
+import Header from '@/components/Header';
+import EditPanel from '@/components/EditPanel';
+import styles from '@/components/RecipeList/index.module.scss';
 
 function Recipe(props) {
-  const { recipes, selectReceiptId, className } = props;
-  const classNames = scssConvert(className, styles, "container");
-
+  const { recipes, ...rest } = props;
+  const {
+    id,
+    name,
+    servings,
+    cookTime,
+    instructions,
+    ingredients
+  } = recipes;
   return (
-    <>
-      <div className={classNames}>
-        <div className={styles['title']}>
-          <h1>Alison's Recipe Book</h1>
-        </div>
-        <div className={styles['add']}>
-          <Button className='btn-big' onClick="" >Add Recipe</Button>
-        </div>
-      </div>
-    </>
+    <div className={styles['recipe']}>
+      <Header name={name} {...rest}></Header>
+      <EditPanel
+        servings={servings}
+        cookTime={cookTime} 
+        instructions={instructions} ingredients={ingredients} {...rest}></EditPanel>
+    </div>
   )
 }
 
-export default Recipe
+export default Recipe;
