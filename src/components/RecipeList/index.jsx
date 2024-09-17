@@ -3,14 +3,24 @@ import styles from '@/components/RecipeList/index.module.scss'
 import { scssConvert } from '@/utils/scssConvert'
 import { Button } from '@/components/Button'
 import Recipe from '@/components/Recipe'
+import { useState } from 'react'
 
 function RecipeList(props) {
-  const { recipes, selectreceiptid, className, addRecipe, deleteRecipe } = props;
+
+  const { recipes, selectrecipeid, className, addRecipe, deleteRecipe, selectRecipe } = props;
+
   const classNames = scssConvert(className, styles, "container");
+
   // for each recipe, render a RecipeList component
   const recipe = recipes.map((recipe) => {
     return (
-      <Recipe key={recipe.id} recipes={recipe} selectreceiptid={selectreceiptid} deleteRecipe={deleteRecipe} />
+      <Recipe
+        key={recipe.id}
+        recipes={recipe}
+        selectrecipeid={selectrecipeid}
+        deleteRecipe={deleteRecipe}
+        selectRecipe={selectRecipe}
+      />
     )
   })
   return (

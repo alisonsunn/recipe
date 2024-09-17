@@ -78,7 +78,7 @@ const sampleRecipes = [
 ]
 
 export const App = () => {
-  const [selectReceiptId, setSelectReceiptId] = useState(false);
+  const [selectrecipeid, setSelectRecipeId] = useState();
 
   const [recipes, setRecipes] = useState(sampleRecipes);
 
@@ -90,15 +90,20 @@ export const App = () => {
     deleteRecipe(id, recipes, setRecipes);
   }
 
+  const handleSelectRecipe = (id) => {
+    setSelectRecipeId(id);
+  }
+
   return (
     <>
       <RecipeList
         recipes={recipes}
-        selectReceiptId={selectReceiptId}
+        selectrecipeid={selectrecipeid}
         addRecipe={handleAddRecipe}
-        deleteRecipe={handleDeleteRecipe} />
+        deleteRecipe={handleDeleteRecipe}
+        selectRecipe={handleSelectRecipe} />
       {/* only when you select a receipt, the edit panel will be displayed */}
-      {selectReceiptId && <EditPanel />}
+      {/* { selectreceiptid && <EditPanel />} */}
     </>
   )
 }
