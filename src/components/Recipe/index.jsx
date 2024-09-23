@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from '@/components/Header';
-import EditPanel from '@/components/EditPanel';
+import Panel from '@/components/Panel';
 import styles from '@/components/RecipeList/index.module.scss';
 import { scssConvert } from '@/utils/scssConvert';
 import { useState, useEffect } from 'react';
 
 
 function Recipe(props) {
-  const { recipes, deleteRecipe, onClick, selectrecipeid, selectRecipe, ...rest } = props;
+  const { recipes, deleteRecipe, onClick, selectrecipeid, selectRecipe, handleSelectRecipe, lastSelectRecipeId, ...rest } = props;
 
   const [chosen, setChosen] = useState();
 
@@ -25,9 +25,15 @@ function Recipe(props) {
   const classNames = scssConvert(chosen, styles, 'recipe');
 
   useEffect(() => {
-    console.log("Updated selected recipe id:", selectrecipeid);
-    selectrecipeid === id ? setChosen('chosen') : setChosen('');
-  }, [selectrecipeid, id])
+    if (selectrecipeid === id) {
+      setChosen('chosen')
+    } else if (lastSelectRecipeId === id) {
+      setChosen('last-chosen')
+    } else {
+      setChosen('')
+    }
+    console.log(selectrecipeid, id, lastSelectRecipeId)
+  }, [selectrecipeid, id, lastSelectRecipeId])
 
   return (
     <div className={classNames}
@@ -35,12 +41,12 @@ function Recipe(props) {
         // e.stopPropagation();
         selectRecipe(id);
       }}>
-      <Header name={name} deleteRecipe={deleteRecipe} id={id} ></Header>
-      <EditPanel
+      <Header name={name} deleteRecipe={()=>{deleteRecipe(id)}} id={id} ></Header>
+      <Panel
         servings={servings}
         cookTime={cookTime}
         instructions={instructions}
-        ingredients={ingredients} ></EditPanel>
+        ingredients={ingredients} ></Panel>
     </div>
   )
 }

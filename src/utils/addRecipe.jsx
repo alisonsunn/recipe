@@ -1,6 +1,6 @@
 import { v4 as uuidV4 } from 'uuid'
 
-function addRecipe(recipes, setRecipes) {
+function addRecipe(recipes, setRecipes, handleSelectRecipe) {
   const newRecipe = {
     id: uuidV4(),
     name: 'New',
@@ -15,6 +15,7 @@ function addRecipe(recipes, setRecipes) {
       }
     ]
   }
+  handleSelectRecipe(newRecipe.id);
   setRecipes([...recipes, newRecipe]);
 }
 

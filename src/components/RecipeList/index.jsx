@@ -3,11 +3,27 @@ import styles from '@/components/RecipeList/index.module.scss'
 import { scssConvert } from '@/utils/scssConvert'
 import { Button } from '@/components/Button'
 import Recipe from '@/components/Recipe'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 function RecipeList(props) {
 
-  const { recipes, selectrecipeid, className, addRecipe, deleteRecipe, selectRecipe } = props;
+  const { recipes, selectrecipeid, className, handleAddRecipe, deleteRecipe, selectRecipe, handleSelectRecipe, lastSelectRecipeId } = props;
+
+  const [addRecipe, setAddRecipe] = useState(false);
+  const ref = useRef();
+  const addNewRecipe = () => {
+    handleAddRecipe();
+    setAddRecipe(true);
+  }
+
+  useEffect(() => {
+    if (addRecipe) {
+      setTimeout(() => {
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+      });
+    }
+    setAddRecipe(false);
+  }, [addRecipe])
 
   const classNames = scssConvert(className, styles, "container");
 
@@ -20,6 +36,8 @@ function RecipeList(props) {
         selectrecipeid={selectrecipeid}
         deleteRecipe={deleteRecipe}
         selectRecipe={selectRecipe}
+        handleSelectRecipe={handleSelectRecipe}
+        lastSelectRecipeId={lastSelectRecipeId}
       />
     )
   })
@@ -27,14 +45,18 @@ function RecipeList(props) {
     <>
       <div className={classNames}>
         <div className={styles['title']}>
-          <h1>Alison's Recipe Book</h1>
+          <h2>Alison's Recipe Book</h2>
         </div>
         <div className={styles['add']}>
-          <Button className='btn-big' onClick={addRecipe} >Add Recipe</Button>
+          <Button className='btn-big' onClick={addNewRecipe} >Add Recipe</Button>
         </div>
         <div >
           {recipe}
         </div>
+        <div className={styles['add']}>
+          <Button className='btn-big' onClick={addNewRecipe} >Add Recipe</Button>
+        </div>
+        <div ref={ref}></div>
       </div>
     </>
   )
